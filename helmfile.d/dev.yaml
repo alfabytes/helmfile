@@ -1,0 +1,16 @@
+helmDefaults:
+  kubeContext: microk8s
+  timeout: 300
+  createNamespace: true
+
+templates:
+  default: &default
+    values:
+      - ./values/dev/{{`{{ .Release.Name }}`}}/values.yaml
+
+releases:
+- name: nginx
+  chart: ../charts/nginx
+  installed: true
+  namespace: dev
+  <<: *default
